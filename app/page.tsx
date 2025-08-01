@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Mic, MicOff, Volume2, MapPin, Plane } from "lucide-react"
+import { Mic, MicOff, Volume2, MapPin, Plane, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -21,8 +21,9 @@ const dialogueSteps: DialogueStep[] = [
   {
     id: 1,
     speaker: "lenoir",
-    text: "Très bien, we're on Ghanaian soil, Agent Touré. But now we need to find the airport exit, la sortie. Hey, voilà! That's Kouassi, who sat next to us on the plane in aisle C. Let's ask him where the exit is. Say to him: 'Excusez-moi, je cherche la sortie.'",
-    audioFile: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%201-ie4rCbCKrBo8UFDTCNcaG0i76mYzqF.mp3",
+    text: "Très bien, we're on Ghanaian soil, Agent Touré. But now we need to find the airport exit, la sortie. Regarde, that's Kouassi, who sat next to us on the plane in aisle C. Let's ask him where the exit is. Say to him: 'Excusez-moi, je cherche la sortie.'",
+    audioFile:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%201-ie4rCbCKrBo8UFDTCNcaG0i76mYzqF.mp3",
   },
   {
     id: 2,
@@ -30,19 +31,22 @@ const dialogueSteps: DialogueStep[] = [
     text: "Ask Kouassi where the exit is:",
     userPrompt: "Excusez-moi, je cherche la sortie.",
     fallbackText: "Vous attendez quoi? What are you waiting for, Touré? Ask Kouassi where the exit is!",
-    fallbackAudio: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%202-cnkpjjbakQXOpmqfJplir4KIGK38nW.mp3",
+    fallbackAudio:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%202-cnkpjjbakQXOpmqfJplir4KIGK38nW.mp3",
   },
   {
     id: 3,
     speaker: "kouassi",
-    text: "Oh, c'est Touré! Vous cherchez la sortie? Viens, je t'y conduis.",
-    audioFile: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kouassi%20Line%201-Q3aH0V9uAB7Cy1jcvMykrmUEZx47Mz.mp3",
+    text: "Oh, c'est Touré! Tu cherches la sortie? Viens, je t'y conduis.",
+    audioFile:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kouassi%20Line%201-Q3aH0V9uAB7Cy1jcvMykrmUEZx47Mz.mp3",
   },
   {
     id: 4,
     speaker: "lenoir",
     text: "Parfait. He's taking us to the exit. Hmm… he seems young, almost like a student. Ask him if he's also going to the University of Ghana at Legon. Remember: 'Est-ce que vous allez aussi à UG Legon ?' Allez-y.",
-    audioFile: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%203-ZEYY754ZIfDo5IQNg6kHR0qm1u542u.mp3",
+    audioFile:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%203-ZEYY754ZIfDo5IQNg6kHR0qm1u542u.mp3",
   },
   {
     id: 5,
@@ -50,19 +54,22 @@ const dialogueSteps: DialogueStep[] = [
     text: "Ask if Kouassi is going to UG Legon too:",
     userPrompt: "Est-ce que vous allez aussi à UG Legon ?",
     fallbackText: "Ce n'est pas compliqué, Touré. Ask if he's going to UG Legon!",
-    fallbackAudio: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%204-QzuMwDyRO0vyahPVI5WoRjZYUeFcbG.mp3",
+    fallbackAudio:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%204-QzuMwDyRO0vyahPVI5WoRjZYUeFcbG.mp3",
   },
   {
     id: 6,
     speaker: "kouassi",
     text: "Oui, je vais à UG. Je suis étudiant là-bas, étudiant de droit, de troisième année. Toi aussi, non? T'inquiète, je vais te faire voir le campus.",
-    audioFile: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kouassi%20Line%202-OqehkGP0buOdLzyBE2e6oi3tbfwbE8.mp3",
+    audioFile:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kouassi%20Line%202-OqehkGP0buOdLzyBE2e6oi3tbfwbE8.mp3",
   },
   {
     id: 7,
     speaker: "lenoir",
     text: "Fantastique. A guide on campus—perfect for our mission. Thank him with: 'Merci beaucoup, c'est ma première fois au Ghana.'",
-    audioFile: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%205-1ThUk6t0nWUUaibuez5xW7uY4sD3mG.mp3",
+    audioFile:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%205-1ThUk6t0nWUUaibuez5xW7uY4sD3mG.mp3",
   },
   {
     id: 8,
@@ -70,13 +77,15 @@ const dialogueSteps: DialogueStep[] = [
     text: "Thank him:",
     userPrompt: "Merci beaucoup, c'est ma première fois au Ghana.",
     fallbackText: "Pas le moment de rester muet, agent. Thank him!",
-    fallbackAudio: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%206-WMtDn6pKv5FlQ4peMTb1WJUJtxzOwO.mp3",
+    fallbackAudio:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Lenoir%20Line%206-WMtDn6pKv5FlQ4peMTb1WJUJtxzOwO.mp3",
   },
   {
     id: 9,
     speaker: "kouassi",
     text: "Pas de problème! Maintenant, commandons un Bolt, je crois que j'ai encore une réduction dont je n'ai pas encore profité.",
-    audioFile: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kouassi%20Line%203-tiZ9yWSEf8PzJ8aJVfFxvYolsZn1Is.mp3",
+    audioFile:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kouassi%20Line%203-tiZ9yWSEf8PzJ8aJVfFxvYolsZn1Is.mp3",
   },
 ]
 
@@ -98,22 +107,67 @@ const pronunciationGuides = {
   },
 }
 
+const crawlText = [
+  "Welcome to SeyGe Reflex — Another Life, Another Tongue™!",
+  "",
+  "🌍 You are Touré Yao, a fresh recruit in the elite SRLUF:",
+  "Service de Renseignement Linguistique de l'Union Francophone.",
+  "",
+  "Your mission? Infiltrate the University of Ghana, Legon under deep cover…",
+  "Posing as a harmless language exchange student.",
+  "",
+  "But you're here to investigate a rogue Francophone cell",
+  "suspected of using soft power to influence student politics.",
+  "",
+  "Your goal: Blend in. Gather intel. Report back.",
+  "All without blowing your cover. And all entirely…in French.",
+  "",
+  "📡 You'll interact via your covert comm glasses,",
+  "staying in constant touch with your handler:",
+  "Commandant Lenoir — icy, brilliant, and watching your every move.",
+  "",
+  "He'll guide you. Challenge you.",
+  "But he won't protect you if you slip.",
+  "",
+  "🧠 Your choices matter.",
+  "Every response you give affects how the story unfolds.",
+  "Every hesitation could cost you your mission… or your identity.",
+  "",
+  "Are you ready to live another life,",
+  "in another tongue?",
+]
+
 export default function SeyGeReflexApp() {
+  const [gameState, setGameState] = useState<"title" | "crawl" | "game" | "complete">("title")
   const [currentStep, setCurrentStep] = useState(0)
   const [isRecording, setIsRecording] = useState(false)
   const [recordingTimer, setRecordingTimer] = useState(0)
   const [showFallback, setShowFallback] = useState(false)
-  const [isComplete, setIsComplete] = useState(false)
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null)
   const [audioPermission, setAudioPermission] = useState(false)
   const [isPlayingAudio, setIsPlayingAudio] = useState(false)
   const [currentAudioSpeaker, setCurrentAudioSpeaker] = useState<"lenoir" | "kouassi" | null>(null)
   const [audioLoadingPromise, setAudioLoadingPromise] = useState<Promise<void> | null>(null)
+  const [crawlIndex, setCrawlIndex] = useState(0)
+  const [titleAnimation, setTitleAnimation] = useState("")
 
   const audioRef = useRef<HTMLAudioElement>(null)
+  const backgroundMusicRef = useRef<HTMLAudioElement>(null)
+  const uiSoundRef = useRef<HTMLAudioElement>(null)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const crawlTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
+    // Start background music
+    if (backgroundMusicRef.current) {
+      backgroundMusicRef.current.volume = 0.3
+      backgroundMusicRef.current.loop = true
+      backgroundMusicRef.current.play().catch(console.error)
+    }
+
+    // Animate title on load
+    setTimeout(() => setTitleAnimation("animate-pulse"), 500)
+
     // Request microphone permission
     navigator.mediaDevices
       .getUserMedia({ audio: true })
@@ -122,8 +176,16 @@ export default function SeyGeReflexApp() {
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
+      if (crawlTimerRef.current) clearInterval(crawlTimerRef.current)
     }
   }, [])
+
+  const playUISound = () => {
+    if (uiSoundRef.current) {
+      uiSoundRef.current.currentTime = 0
+      uiSoundRef.current.play().catch(console.error)
+    }
+  }
 
   const stopCurrentAudio = () => {
     if (audioRef.current) {
@@ -138,15 +200,12 @@ export default function SeyGeReflexApp() {
     if (!audioRef.current) return
 
     try {
-      // Stop any currently playing audio
       stopCurrentAudio()
 
-      // Wait for any pending audio loading to complete
       if (audioLoadingPromise) {
         await audioLoadingPromise
       }
 
-      // Create a new loading promise
       const loadingPromise = new Promise<void>((resolve, reject) => {
         if (!audioRef.current) {
           reject(new Error("Audio element not available"))
@@ -155,7 +214,6 @@ export default function SeyGeReflexApp() {
 
         const audio = audioRef.current
 
-        // Set up event listeners
         const onCanPlay = () => {
           audio.removeEventListener("canplay", onCanPlay)
           audio.removeEventListener("error", onError)
@@ -171,19 +229,15 @@ export default function SeyGeReflexApp() {
         audio.addEventListener("canplay", onCanPlay)
         audio.addEventListener("error", onError)
 
-        // Load the audio file
         audio.src = audioFile
         audio.load()
       })
 
       setAudioLoadingPromise(loadingPromise)
-
-      // Wait for audio to be ready
       await loadingPromise
 
       if (!audioRef.current) return
 
-      // Set up playback event listeners
       setIsPlayingAudio(true)
       setCurrentAudioSpeaker(speaker || null)
 
@@ -208,10 +262,7 @@ export default function SeyGeReflexApp() {
       audioRef.current.addEventListener("ended", onEnded)
       audioRef.current.addEventListener("error", onPlayError)
 
-      // Start playback
       await audioRef.current.play()
-
-      // Clear the loading promise
       setAudioLoadingPromise(null)
     } catch (error) {
       console.error("Error playing audio:", error)
@@ -225,7 +276,6 @@ export default function SeyGeReflexApp() {
     if (!audioPermission) return
 
     try {
-      // Stop any playing audio before recording
       stopCurrentAudio()
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
@@ -236,11 +286,9 @@ export default function SeyGeReflexApp() {
       setRecordingTimer(5)
       setShowFallback(false)
 
-      // Start 5-second countdown
       timerRef.current = setInterval(() => {
         setRecordingTimer((prev) => {
           if (prev <= 1) {
-            // Time's up - show fallback
             stopRecording()
             showFallbackMessage()
             return 0
@@ -253,7 +301,6 @@ export default function SeyGeReflexApp() {
 
       recorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
-          // Simulate successful recording
           setTimeout(() => {
             completeUserStep()
           }, 500)
@@ -281,12 +328,10 @@ export default function SeyGeReflexApp() {
     if (step.fallbackText) {
       setShowFallback(true)
       if (step.fallbackAudio) {
-        // Add a small delay before playing fallback audio
         setTimeout(() => {
           playAudio(step.fallbackAudio!, "lenoir")
         }, 100)
       }
-      // Auto-restart recording after fallback
       setTimeout(() => {
         setShowFallback(false)
         startRecording()
@@ -302,31 +347,199 @@ export default function SeyGeReflexApp() {
       timerRef.current = null
     }
 
-    // Move to next step
+    // Auto-advance to next step and play audio automatically
     setTimeout(() => {
       if (currentStep < dialogueSteps.length - 1) {
-        setCurrentStep(currentStep + 1)
+        const nextStep = currentStep + 1
+        setCurrentStep(nextStep)
+
+        // Auto-play the next character's audio
+        const nextDialogue = dialogueSteps[nextStep]
+        if (nextDialogue.audioFile && nextDialogue.speaker !== "user") {
+          setTimeout(() => {
+            playAudio(nextDialogue.audioFile!, nextDialogue.speaker as "lenoir" | "kouassi")
+          }, 500)
+        }
       } else {
-        setIsComplete(true)
+        setGameState("complete")
       }
     }, 1000)
   }
 
   const nextStep = () => {
-    // Stop any playing audio when moving to next step
+    playUISound()
     stopCurrentAudio()
 
     if (currentStep < dialogueSteps.length - 1) {
-      setCurrentStep(currentStep + 1)
+      const nextStepIndex = currentStep + 1
+      setCurrentStep(nextStepIndex)
+
+      // Auto-play audio for non-user steps
+      const nextDialogue = dialogueSteps[nextStepIndex]
+      if (nextDialogue.audioFile && nextDialogue.speaker !== "user") {
+        setTimeout(() => {
+          playAudio(nextDialogue.audioFile!, nextDialogue.speaker as "lenoir" | "kouassi")
+        }, 500)
+      }
     } else {
-      setIsComplete(true)
+      setGameState("complete")
     }
   }
 
-  const currentDialogue = dialogueSteps[currentStep]
-  const progress = ((currentStep + 1) / dialogueSteps.length) * 100
+  const startCrawl = () => {
+    playUISound()
+    setGameState("crawl")
+    setCrawlIndex(0)
 
-  if (isComplete) {
+    crawlTimerRef.current = setInterval(() => {
+      setCrawlIndex((prev) => {
+        if (prev >= crawlText.length - 1) {
+          if (crawlTimerRef.current) clearInterval(crawlTimerRef.current)
+          return prev
+        }
+        return prev + 1
+      })
+    }, 800)
+  }
+
+  const startGame = () => {
+    playUISound()
+    setGameState("game")
+    if (crawlTimerRef.current) clearInterval(crawlTimerRef.current)
+
+    // Auto-play first dialogue audio
+    const firstDialogue = dialogueSteps[0]
+    if (firstDialogue.audioFile) {
+      setTimeout(() => {
+        playAudio(firstDialogue.audioFile!, firstDialogue.speaker as "lenoir" | "kouassi")
+      }, 500)
+    }
+  }
+
+  const quitGame = () => {
+    playUISound()
+    window.close()
+  }
+
+  // Title Screen
+  if (gameState === "title") {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        {/* Background Music */}
+        <audio ref={backgroundMusicRef} preload="auto">
+          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Bienvenue%20au%20Service-R9en2nhrrOkZlrEWyijvZ39PkZmoEs.mp3" type="audio/mpeg" />
+        </audio>
+
+        {/* UI Sound */}
+        <audio ref={uiSoundRef} preload="auto">
+          <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiR1/LNeSsFJHfH8N2QQAoUXrTp66hV" />
+        </audio>
+
+        {/* SRLUF Emblem Watermark */}
+        <div className="absolute top-4 left-4 opacity-20 z-10">
+          <img src="/images/srluf-emblem.png" alt="SRLUF" className="w-16 h-16" />
+        </div>
+
+        {/* Version Info */}
+        <div className="absolute bottom-4 right-4 text-slate-500 text-xs font-mono">
+          Ver. 0.1 | Internal Testing | Codename: Reflex Fire
+        </div>
+
+        {/* Airport Background with Motion */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+          <div className="absolute top-1/4 right-1/3 w-2 h-2 bg-red-500 rounded-full animate-pulse opacity-60" />
+          <div className="absolute top-1/3 left-1/4 w-1 h-1 bg-blue-400 rounded-full animate-pulse opacity-40" />
+          <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-green-400 rounded-full animate-pulse opacity-50" />
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-20 min-h-screen flex flex-col items-center justify-center p-8">
+          <div className="text-center space-y-8 max-w-2xl">
+            {/* Title */}
+            <div className={`space-y-4 ${titleAnimation}`}>
+              <h1 className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 tracking-wider">
+                SeyGe Reflex
+              </h1>
+              <p className="text-xl md:text-2xl text-slate-300 font-light tracking-wide">
+                Another Life, Another Tongue™
+              </p>
+              <p className="text-sm md:text-base text-slate-400 italic">Undercover. Uncovered. Unfiltered.</p>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
+              <Button
+                onClick={startCrawl}
+                onMouseEnter={playUISound}
+                className="bg-green-600 hover:bg-green-500 text-white px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-green-500/25 transition-all duration-300 group"
+              >
+                <span className="mr-2">🟢</span>
+                Begin
+                <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+
+              <Button
+                onClick={quitGame}
+                onMouseEnter={playUISound}
+                variant="outline"
+                className="border-red-500 text-red-400 hover:bg-red-500 hover:text-white px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 bg-transparent"
+              >
+                <span className="mr-2">🔴</span>
+                Abort Operation
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Crawl Screen
+  if (gameState === "crawl") {
+    return (
+      <div className="min-h-screen bg-black text-green-400 font-mono relative overflow-hidden">
+        {/* Skip Button */}
+        <Button
+          onClick={startGame}
+          onMouseEnter={playUISound}
+          className="absolute top-4 right-4 z-50 bg-slate-800 hover:bg-slate-700 text-green-400 border border-green-400"
+        >
+          Skip <ChevronRight className="ml-1 w-4 h-4" />
+        </Button>
+
+        {/* Crawl Text */}
+        <div className="min-h-screen flex items-center justify-center p-8">
+          <div className="max-w-3xl text-center space-y-6">
+            {crawlText.slice(0, crawlIndex + 1).map((line, index) => (
+              <div
+                key={index}
+                className={`text-lg md:text-xl leading-relaxed transition-opacity duration-1000 ${
+                  index === crawlIndex ? "opacity-100 animate-pulse" : "opacity-80"
+                }`}
+              >
+                {line}
+              </div>
+            ))}
+
+            {crawlIndex >= crawlText.length - 1 && (
+              <div className="mt-12 animate-pulse">
+                <Button
+                  onClick={startGame}
+                  onMouseEnter={playUISound}
+                  className="bg-purple-600 hover:bg-purple-500 text-white px-8 py-4 text-xl font-bold rounded-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
+                >
+                  🟪 Begin Mission 1: Arrival
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Game Complete Screen
+  if (gameState === "complete") {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 flex items-center justify-center p-4">
         <Card className="max-w-md w-full p-8 text-center bg-slate-800 border-green-500 border-2">
@@ -340,6 +553,10 @@ export default function SeyGeReflexApp() {
       </div>
     )
   }
+
+  // Main Game
+  const currentDialogue = dialogueSteps[currentStep]
+  const progress = ((currentStep + 1) / dialogueSteps.length) * 100
 
   return (
     <div
@@ -434,7 +651,7 @@ export default function SeyGeReflexApp() {
           >
             <div className="flex flex-col items-center space-y-2">
               <img
-                src="/placeholder.svg?height=80&width=80"
+                src="/images/characters/toure-portrait.jpg"
                 alt="Touré Yao"
                 className={`w-20 h-20 rounded-full object-cover transition-all duration-300 ${
                   currentDialogue.speaker === "user" ? "border-green-400 border-3" : "border-2 border-slate-500"
@@ -557,23 +774,24 @@ export default function SeyGeReflexApp() {
                 )}
 
                 <div className="flex items-center space-x-3">
-                  {currentDialogue.audioFile && (
+                  {currentDialogue.audioFile && currentDialogue.speaker !== "user" && (
                     <Button
                       onClick={() =>
                         playAudio(currentDialogue.audioFile!, currentDialogue.speaker as "lenoir" | "kouassi")
                       }
+                      onMouseEnter={playUISound}
                       disabled={isPlayingAudio}
                       variant="outline"
                       size="sm"
                       className="bg-slate-700 border-slate-600 hover:bg-slate-600"
                     >
                       <Volume2 className="w-4 h-4 mr-2" />
-                      {isPlayingAudio ? "Playing..." : "Play Audio"}
+                      {isPlayingAudio ? "Playing..." : "Replay Audio"}
                     </Button>
                   )}
 
                   {currentDialogue.speaker !== "user" && (
-                    <Button onClick={nextStep} className="bg-green-600 hover:bg-green-700">
+                    <Button onClick={nextStep} onMouseEnter={playUISound} className="bg-green-600 hover:bg-green-700">
                       Continue
                     </Button>
                   )}
@@ -589,6 +807,7 @@ export default function SeyGeReflexApp() {
                 {!isRecording ? (
                   <Button
                     onClick={startRecording}
+                    onMouseEnter={playUISound}
                     disabled={!audioPermission}
                     className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-lg"
                   >
@@ -609,6 +828,7 @@ export default function SeyGeReflexApp() {
                         stopRecording()
                         completeUserStep()
                       }}
+                      onMouseEnter={playUISound}
                       className="bg-green-600 hover:bg-green-700"
                     >
                       Complete

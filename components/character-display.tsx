@@ -29,7 +29,7 @@ export function CharacterDisplay({ speaker, isActive }: CharacterDisplayProps) {
       default:
         return {
           name: "Touré Yao",
-          image: "/placeholder.svg?height=120&width=120",
+          image: "/images/characters/toure-portrait.jpg",
           title: "SRLUF Agent",
           borderColor: "border-green-400",
           bgColor: "bg-green-900/20",
